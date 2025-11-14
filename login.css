@@ -1,0 +1,223 @@
+:root {
+  --ashesi-red: #7a0000;
+  --ashesi-dark: #3d0000;
+  --bg: #f9fafb;
+   --hero-image: url('assets/hero.jpg');
+  --muted: #6b7280;
+  --gradient-accent: linear-gradient(135deg, #7a0000, #3d0000);
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  background-image: linear-gradient(135deg, rgba(122,0,0,0.92), rgba(61,0,0,0.95)), var(--hero-image);
+  background-size: cover;
+  background-position: center;
+  background-color: var(--ashesi-dark);
+}
+
+.login-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.45));
+  z-index: 0;
+}
+
+.login-container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.back-home {
+  display: block;
+  margin: 0 auto 2rem;
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.9);
+  padding: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease;
+}
+
+.back-home:hover {
+  transform: translateY(-2px);
+}
+
+.login-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.form-card {
+  background: rgba(255,255,255,0.98);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+  width: 100%;
+  max-width: 380px;
+  margin: 5vh auto;
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+
+.form-card h2 {
+  color: var(--ashesi-dark);
+  margin-bottom: 8px;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.form-subtitle {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 32px;
+}
+
+.error-message {
+  background: rgba(220,38,38,0.1);
+  color: #dc2626;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--ashesi-dark);
+  font-size: 0.9rem;
+}
+
+.input-wrapper {
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: #fff;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--ashesi-red);
+  box-shadow: 0 2px 12px rgba(122,0,0,0.1);
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+.btn {
+  width: 100%;
+  background: var(--gradient-accent) !important;
+  color: white !important;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(122,0,0,0.2);
+  text-decoration: none;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(122,0,0,0.3);
+}
+
+.btn svg {
+  transition: transform 0.2s ease;
+}
+
+.btn:hover svg {
+  transform: translateX(4px);
+}
+
+.switch {
+  margin-top: 28px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.switch a {
+  color: var(--ashesi-red);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 4px;
+  position: relative;
+}
+
+.switch a:hover {
+  color: var(--ashesi-dark);
+}
+
+.switch a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.switch a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+@media (max-width: 640px) {
+  .form-card {
+    padding: 32px 24px;
+  }
+  .form-card h2 {
+    font-size: 1.75rem;
+  }
+  .back-home {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 1.5rem;
+  }
+}
