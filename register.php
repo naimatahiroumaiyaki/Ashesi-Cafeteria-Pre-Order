@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = trim($_POST['name']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
-    $role = trim($_POST['role']);
+    $role = $_POST['role'] ?? 'user'; // Default role is 'user'
 
     // Check if email already exists
     $checkSql = "SELECT * FROM users WHERE email = ?";

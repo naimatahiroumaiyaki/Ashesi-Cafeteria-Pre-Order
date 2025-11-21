@@ -59,9 +59,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         // If none matched
-        if ($error === "") {
-            $error = "Incorrect password!";
-        }
+        //if ($error === "") {
+           // $error = "Incorrect password!";
+       // }
 
     } else {
         $error = "No account found with that email.";

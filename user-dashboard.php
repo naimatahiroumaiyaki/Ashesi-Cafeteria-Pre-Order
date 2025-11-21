@@ -122,11 +122,6 @@ include 'connect.php';
             </div>
         </section>
 
-        <!--  QUEUE STATUS -->
-        <section class="queue-section">
-            <h2>Queue Status</h2>
-            <div id="queueStatus">Select a cafeteria to see queue info.</div>
-        </section>
     </div>
 
     <!--  FEEDBACK -->

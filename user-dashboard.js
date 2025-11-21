@@ -1,14 +1,16 @@
-/* ==============================================================
-   DATA (normally fetched from the DB – kept here for demo)
-   ============================================================== */
-const queueData = {
-    akorno:   { count: 8,  status: 'moderate', wait: 15 },
-    hallmark: { count: 5,  status: 'short',    wait: 8 },
-    munchies: { count: 12, status: 'long',     wait: 25 }
-};
+/*
+1. Loads menu and shows items
+2. Lets users add items to cart
+3. Calculates total price
+4. Sends order to server (PHP)
+5. Checks order status automatically
+6. Shows order history + feedback */
+
+
+
 
 const menus = {
-    akorno: [
+    akorno: [ 
         {id:1, name:'Kenkey', price:20, cat:'lunch', img:'assets/kenkey.jpeg', desc:'Kenkey is a traditional Ghanaian dish made from fermented corn dough, wrapped in corn husks, and steamed'},
         {id:2, name:'Chawarma', price:15, cat:'singles', img:'assets/chawarma.jpeg', desc:'Perfectly seasoned'},
         {id:3, name:'Grilled Chicken', price:25, cat:'lunch', img:'assets/grilled_chicken.jpeg', desc:'Rice & beans'},
@@ -47,35 +49,60 @@ const menus = {
    
     ],  
     hallmark: [
-        {id:35, name:'Pasta Bolognese', price:25, cat:'lunch', img:'assets/pasta.jpg', desc:'Spaghetti with meat sauce'},
-        {id:36, name:'Club Sandwich', price:18, cat:'snack', img:'assets/sandwich.jpg', desc:'Triple-decker sandwich'},
-        {id:37, name:'breakfast Pack', price:15, cat:'breakfast', img:'assets/breakfast.jpg', desc:'Eggs, bread, sausage'},
-        {id:38, name:'Fruit Salad', price:12, cat:'snack', img:'assets/fruit-salad.jpg', desc:'Fresh fruits'},
-        {id:39, name:'Soft Drinks', price:8, cat:'drinks', img:'assets/soft-drinks.jpg', desc:'Carbonated'},
-        {id:40, name:'Coffee', price:10, cat:'drinks', img:'assets/coffee.jpg', desc:'Freshly brewed'}
+        {id:35, name:'Pasta Bolognese', price:25, cat:'lunch', img:'assets/pasta.jpeg', desc:'Spaghetti with meat sauce'},
+        {id:36, name:'Club Sandwich', price:18, cat:'breakfast', img:'assets/club_sandwich.jpeg', desc:'Triple-decker sandwich'},
+        {id:37, name:'breakfast Pack', price:15, cat:'breakfast', img:'assets/B_Pack.jpeg', desc:'Eggs, bread, sausage'},
+        {id:38, name:'Fruit Salad', price:12, cat:'snack', img:'assets/fruit_salad.jpeg', desc:'Fresh fruits'},
+        {id:39, name:'Pineaple juice', price:15, cat:'drinks', img:'assets/pineapple.jpeg', desc:'Natural pineaple jusice'},
+        {id:40, name:'Black Coffee', price:10, cat:'breakfast', img:'assets/b_coffee.jpeg', desc:'Black Coffee'},
+        {id:41, name:'Chicken Sandwich', price:38, cat:'breakfast', img:'assets/ChickenSandwich.jpeg', desc:'Eggs, bread, Chicken'},
+        {id:42, name:'Slice Bread', price:6, cat:'breakfast', img:'assets/slice_bread.jpeg', desc:'Slice Bread'},
+        {id:43, name:'Fufu', price:38, cat:'lunch', img:'assets/fufu.jpeg', desc:'Fufu with soup'},
+        {id:44, name:'Fried Yam', price:20, cat:'lunch', img:'assets/fried_yam.jpeg', desc:'Fried Yam'},
+        {id:45, name:'French Fries', price:5, cat:'lunch', img:'assets/frenchF.jpeg', desc:'Crispy French Fries'},
+        {id:46, name:'Fried Rice', price:30, cat:'lunch', img:'assets/friedR.jpeg', desc:'Fried Rice'},
+        {id:47, name:'Boiled Plantain', price:15, cat:'singles', img:'assets/boiled_plantain.jpeg', desc:'Boiled Plantain'},
+        {id:48, name:'Fried Yam', price:20, cat:'dinner', img:'assets/fried_yam.jpeg', desc:'Fried Yam'},
+        {id:49, name:'French Fries', price:5, cat:'dinner', img:'assets/frenchF.jpeg', desc:'Crispy French Fries'},
+        {id:50, name:'Apple juice', price:15, cat:'drinks', img:'assets/apple.jpeg', desc:'Fresh Apple Juice'},
+        {id:51, name:'Pasteque juice', price:15, cat:'drinks', img:'assets/pasteque.jpeg', desc:'Fresh Pasteque Juice'},
+        {id:52, name:'Mango juice', price:15, cat:'drinks', img:'assets/Mango.jpeg', desc:'Fresh Mango Juice'},
+        {id:53, name:'Pack', price:5, cat:'packs', img:'assets/pack.jpeg', desc:'Pack'},
+        {id:54, name:'Paper Bag', price:3, cat:'packs', img:'assets/paper.jpeg', desc:'Paper Bag'},
+        {id:55, name:'Chicken Sandwich', price:38, cat:'breakfast', img:'assets/ChickenSandwich.jpeg', desc:'Eggs, bread, Chicken'},
+   
+
+
+
     ],
     munchies: [
-        {id:13, name:'Burger', price:30, cat:'singles', img:'assets/burger.jpg', desc:'Beef burger'},
-        {id:14, name:'Pizza Slice', price:22, cat:'singles', img:'assets/pizza.jpg', desc:'Pepperoni slice'},
-        {id:15, name:'French Fries', price:15, cat:'snack', img:'assets/fries.jpg', desc:'Crispy fries'},
-        {id:16, name:'Chicken Wings', price:25, cat:'singles', img:'assets/wings.jpg', desc:'Buffalo wings'},
-        {id:17, name:'Milkshake', price:18, cat:'drinks', img:'assets/milkshake.jpg', desc:'Vanilla'},
-        {id:18, name:'Ice Tea', price:12, cat:'drinks', img:'assets/ice-tea.jpg', desc:'Lemon iced tea'}
+        {id:56, name:'Burger', price:30, cat:'singles', img:'assets/burger1.jpeg', desc:'Beef burger'},
+        {id:57, name:'Waakye', price:22, cat:'lunch', img:'assets/waakye2.jpeg', desc:'Waakye'},
+        {id:58, name:'French Fries', price:15, cat:'snack', img:'assets/fries.jpg', desc:'Crispy fries'},
+        {id:59, name:'Potato Salad', price:25, cat:'lunch', img:'assets/potato.jpeg', desc:'Buffalo wings'},
+        {id:60, name:'Milkshake', price:18, cat:'drinks', img:'assets/milkshake.jpeg', desc:'Vanilla'},
+        {id:61, name:'Ice Tea', price:12, cat:'drinks', img:'assets/ice_tea.jpeg', desc:'Lemon iced tea'},
+        {id:62, name:'Fried Yam', price:20, cat:'lunch', img:'assets/fried_yam.jpeg', desc:'Fried Yam'},
+        {id:63, name:'French Fries', price:5, cat:'lunch', img:'assets/frenchF.jpeg', desc:'Crispy French Fries'},
+        {id:64, name:'Pack', price:6, cat:'packs', img:'assets/pack.jpeg', desc:'Pack'},
+        {id:65, name:'Paper Bag', price:3, cat:'packs', img:'assets/paper.jpeg', desc:'Paper Bag'},
+   
+
     ]
 };
 
 const momoNumbers = { akorno:'0551234567', hallmark:'0241234567', munchies:'0501234567' };
 
-/* ==============================================================
+/* 
    STATE
-   ============================================================== */
+    */
 let currentCafeteria = '';
 let cart = {};                     // { itemId: {qty, price, name} }
 let orderInterval = null;
 
-/* ==============================================================
+/* 
    DOM REFERENCES
-   ============================================================== */
+    */
 const els = {
     cafeteriaSel : document.getElementById('cafeteriaSelect'),
     menuList     : document.getElementById('menuList'),
@@ -99,17 +126,13 @@ const els = {
     cancelBtn    : document.getElementById('cancelOrderBtn')
 };
 
-/* ==============================================================
-   HELPERS
-   ============================================================== */
+/* --- HELPERS --- */
 const fmt = n => n.toFixed(2);
 const show = el => el.classList.remove('hidden');
 const hide = el => el.classList.add('hidden');
 
-/* --------------------------------------------------------------
-   RENDER MENU
-   -------------------------------------------------------------- */
-function renderMenu(items, filterCat = 'all', search = '') {
+/* --- RENDER MENU --- */
+function renderMenu(items, filterCat='all', search='') {
     const filtered = items.filter(it => {
         const catOk = filterCat === 'all' || it.cat === filterCat;
         const searchOk = it.name.toLowerCase().includes(search.toLowerCase());
@@ -119,9 +142,10 @@ function renderMenu(items, filterCat = 'all', search = '') {
     els.menuList.innerHTML = filtered.length
         ? `<div class="menu-grid">${filtered.map(renderItem).join('')}</div>`
         : `<div class="empty-state">No items match your filter.</div>`;
+
+    attachItemListeners();
 }
 
-/* one menu card */
 function renderItem(item) {
     const inCart = cart[item.id];
     const qty = inCart ? inCart.qty : 1;
@@ -149,280 +173,166 @@ function renderItem(item) {
     </div>`;
 }
 
-/* --------------------------------------------------------------
-   CART LOGIC
-   -------------------------------------------------------------- */
-function addToCart(itemId, price, name) {
-    if (!cart[itemId]) cart[itemId] = {qty:1, price, name};
+/* --- CART LOGIC --- */
+function addToCart(id, price, name) {
+    if (!cart[id]) cart[id] = {qty:1, price, name};
     updateTotal();
-    rerenderItem(itemId);
+    renderMenu(menus[currentCafeteria]);
 }
-function removeFromCart(itemId) {
-    delete cart[itemId];
+function removeFromCart(id) {
+    delete cart[id];
     updateTotal();
-    rerenderItem(itemId);
+    renderMenu(menus[currentCafeteria]);
 }
-function changeQty(itemId, delta) {
-    if (!cart[itemId]) return;
-    const newQty = cart[itemId].qty + delta;
-    if (newQty < 1) { removeFromCart(itemId); return; }
-    cart[itemId].qty = newQty;
+function changeQty(id, delta) {
+    if (!cart[id]) return;
+    const newQty = cart[id].qty + delta;
+    if (newQty < 1) { removeFromCart(id); return; }
+    cart[id].qty = newQty;
     updateTotal();
-    rerenderItem(itemId);
+    renderMenu(menus[currentCafeteria]);
 }
+
 function updateTotal() {
     let total = 0;
-    for (const id in cart) {
-        total += cart[id].price * cart[id].qty;
-    }
+    for (const id in cart) total += cart[id].price * cart[id].qty;
     els.totalSpan.textContent = fmt(total);
 }
 
-/* re-render only the changed card (keeps scroll position) */
-function rerenderItem(id) {
-    const card = document.querySelector(`.menu-item[data-id="${id}"]`);
-    if (!card) return;
-    const item = menus[currentCafeteria].find(i => i.id == id);
-    card.outerHTML = renderItem(item);
-    attachItemListeners(card);
-}
-
-/* --------------------------------------------------------------
-   EVENT DELEGATION
-   -------------------------------------------------------------- */
-function attachItemListeners(root = document) {
-    root.addEventListener('click', e => {
-        const btn = e.target.closest('.qty-btn');
-        if (btn) {
-            const id = btn.dataset.id;
-            const dir = btn.dataset.dir;
-            changeQty(+id, dir === '+' ? 1 : -1);
-            return;
-        }
+/* --- ITEM LISTENERS --- */
+function attachItemListeners() {
+    document.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.onclick = () => {
+            const id = +btn.dataset.id;
+            const delta = btn.dataset.dir === '+' ? 1 : -1;
+            changeQty(id, delta);
+        };
     });
-
-    root.addEventListener('change', e => {
-        if (e.target.type !== 'checkbox') return;
-        const id = +e.target.dataset.id;
-        const item = menus[currentCafeteria].find(i => i.id === id);
-        if (e.target.checked) addToCart(id, item.price, item.name);
-        else removeFromCart(id);
+    document.querySelectorAll('.qty-input').forEach(input => {
+        input.oninput = () => {
+            const id = +input.dataset.id;
+            let val = parseInt(input.value) || 1;
+            if (val < 1) val = 1; if (val > 99) val = 99;
+            input.value = val;
+            if (cart[id]) { cart[id].qty = val; updateTotal(); }
+        };
     });
-
-    root.addEventListener('input', e => {
-        if (!e.target.classList.contains('qty-input')) return;
-        const id = +e.target.dataset.id;
-        let val = parseInt(e.target.value) || 1;
-        if (val < 1) val = 1;
-        if (val > 99) val = 99;
-        e.target.value = val;
-        if (cart[id]) {
-            cart[id].qty = val;
-            updateTotal();
-        }
+    document.querySelectorAll('.menu-item input[type="checkbox"]').forEach(cb => {
+        cb.onchange = () => {
+            const id = +cb.dataset.id;
+            const item = menus[currentCafeteria].find(i=>i.id===id);
+            if (cb.checked) addToCart(id, item.price, item.name);
+            else removeFromCart(id);
+        };
     });
 }
 
-/* 
-   CAFETERIA CHANGE
-   */
-els.cafeteriaSel.addEventListener('change', () => {
+/* --- CAFETERIA SELECT --- */
+els.cafeteriaSel.onchange = () => {
     currentCafeteria = els.cafeteriaSel.value;
-    cart = {};                 
+    cart = {};
     updateTotal();
-
     if (!currentCafeteria) {
-        els.menuList.innerHTML = '<div class="empty-state">Please select a restaurant.</div>';
-        els.queueStatus.innerHTML = '<div class="empty-state">Select a cafeteria to see queue info.</div>';
+        els.menuList.innerHTML = '<div class="empty-state">Please select a cafeteria.</div>';
         return;
     }
+    renderMenu(menus[currentCafeteria]);
+};
 
-    const items = menus[currentCafeteria];
-    renderMenu(items);
-    attachItemListeners();
-
-    // queue
-    const q = queueData[currentCafeteria];
-    const cls = q.count <= 5 ? 'green' : q.count < 12 ? 'orange' : 'red';
-    els.queueStatus.innerHTML = `<div class="queue-indicator ${cls}">
-        ${q.count} people – ${q.wait} min estimated
-    </div>`;
-});
-
-/* 
-   CATEGORY FILTER
-   */
-document.querySelectorAll('.category-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const cat = btn.dataset.category;
-        renderMenu(menus[currentCafeteria], cat, document.getElementById('menuSearch').value);
-    });
-});
-
-/* 
-   SEARCH
-   */
-document.getElementById('menuSearch').addEventListener('input', e => {
-    const activeCat = document.querySelector('.category-btn.active').dataset.category;
-    renderMenu(menus[currentCafeteria], activeCat, e.target.value);
-});
-
-/* 
-   PAYMENT / ORDER TYPE
-   */
-els.paymentMethod.addEventListener('change', () => {
+/* --- PAYMENT METHOD --- */
+els.paymentMethod.onchange = () => {
     const v = els.paymentMethod.value;
-    els.mealPlan.classList.toggle('hidden', v !== 'mealplan');
-    els.momoFields.classList.toggle('hidden', v !== 'momo');
-    if (v === 'momo' && currentCafeteria) {
-        els.momoNumber.textContent = momoNumbers[currentCafeteria];
-    }
-});
-els.orderType.addEventListener('change', () => {
-    els.delivery.classList.toggle('hidden', els.orderType.value !== 'delivery');
-});
+    els.mealPlan.classList.toggle('hidden', v!=='mealplan');
+    els.momoFields.classList.toggle('hidden', v!=='momo');
+    if (v==='momo' && currentCafeteria) els.momoNumber.textContent = momoNumbers[currentCafeteria];
+};
 
-/* 
-   ORDER SUBMISSION
-   */
-els.orderForm.addEventListener('submit', async e => {
+/* --- ORDER TYPE --- */
+els.orderType.onchange = () => {
+    els.delivery.classList.toggle('hidden', els.orderType.value!=='delivery');
+};
+
+
+
+/* --- PLACE ORDER --- */
+
+els.orderForm.onsubmit = async (e) => {
     e.preventDefault();
-    if (Object.keys(cart).length === 0) {
-        alert('Your cart is empty.');
-        return;
+
+
+    if (Object.keys(cart).length === 0) { 
+        alert('Cart is empty'); return; 
     }
 
     const payload = {
         cafeteria: currentCafeteria,
-        items: Object.values(cart).map(it => ({
-            id: parseInt(Object.keys(cart).find(k => cart[k] === it)),
-            name: it.name,
-            price: it.price,
-            quantity: it.qty
+        items: Object.keys(cart).map(id=>({
+            id: +id,
+            name: cart[id].name,
+            price: cart[id].price,
+            quantity: cart[id].qty
         })),
         orderType: els.orderType.value,
         paymentMethod: els.paymentMethod.value,
         total: parseFloat(els.totalSpan.textContent)
     };
-
-    if (payload.paymentMethod === 'mealplan') {
+    if (payload.paymentMethod==='mealplan') {
         payload.studentId = document.getElementById('studentId').value.trim();
-        payload.pin = document.getElementById('mealPlanPin').value;
+        payload.pin = document.getElementById('mealPlanPin').value.trim();
     }
-    if (payload.paymentMethod === 'momo') {
+    if (payload.paymentMethod==='momo') {
         payload.momoReference = document.getElementById('momoReference').value.trim();
     }
-    if (payload.orderType === 'delivery') {
+    if (payload.orderType==='delivery') {
         payload.deliveryLocation = document.getElementById('deliveryLocation').value.trim();
         payload.deliveryInstructions = document.getElementById('deliveryInstructions').value.trim();
     }
 
+    //Debug add on 11/20/2025
+    console.log('Sending order payload:', payload);
+
     try {
         const res = await fetch('process_order.php', {
-            method: 'POST',
-            headers: {'Content-Type':'application/json'},
-            body: JSON.stringify(payload)
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify(payload)
         });
         const data = await res.json();
-
+        console.log('Received response:', data); // Debug log
         if (data.success) {
-            showOrderStatus('Order received!', 'received');
-            startOrderPolling(data.orderId);
-            cart = {}; updateTotal(); renderMenu(menus[currentCafeteria]);
+            showOrderStatus('Order received! Order ID: ' + data.orderId, 'success');
+            cart = {}; 
+            updateTotal(); 
+            renderMenu(menus[currentCafeteria]);
         } else {
-            showOrderStatus(data.message || 'Failed', 'error');
+            showOrderStatus(data.message||'Failed', 'error');
         }
-    } catch (err) {
+    } catch(err) { 
+        console.log('Error submitting order:', err); // Debug log
         showOrderStatus('Network error', 'error');
-    }
-});
+     }
+};
 
-/* 
-   ORDER STATUS MODAL + POLLING
-   */
+/* --- ORDER STATUS MODAL --- */
 function showOrderStatus(msg, type) {
     els.orderContent.textContent = msg;
-    els.orderContent.style.color = type === 'error' ? 'red' : 'inherit';
+    els.orderContent.style.color = type==='error'?'red':'green';
     show(els.orderModal);
-    setTimeout(() => hide(els.orderModal), 4000);
-}
-function startOrderPolling(orderId) {
-    if (orderInterval) clearInterval(orderInterval);
-    orderInterval = setInterval(async () => {
-        try {
-            const r = await fetch(`get_order_status.php?id=${orderId}`);
-            const st = await r.json();
-            document.getElementById('stepReceived').classList.toggle('active', st === 'received');
-            document.getElementById('stepProcessing').classList.toggle('active', st === 'processing');
-            document.getElementById('stepReady').classList.toggle('active', st === 'ready');
-            if (['ready','completed','cancelled'].includes(st)) clearInterval(orderInterval);
-        } catch (_) {}
-    }, 3000);
+    setTimeout(()=>hide(els.orderModal),4000);
 }
 
-/* 
-   ORDER HISTORY
-   */
-async function loadHistory(filter = 'all') {
-    try {
-        const r = await fetch(`get_order_history.php?filter=${filter}`);
-        const orders = await r.json();
-        els.historyList.innerHTML = orders.map(o => `
-            <div class="order-card" onclick="showDetails(${o.id})">
-                <div class="order-status status-${o.status.toLowerCase()}">${o.status}</div>
-                <div class="order-info">
-                    <div class="order-id">#${o.id}</div>
-                    <div class="order-date">${new Date(o.created_at).toLocaleString()}</div>
-                </div>
-                <div class="order-total">¢${fmt(o.total_amount)}</div>
-            </div>`).join('');
-    } catch (e) { console.error(e); }
-}
-els.historyFilter.addEventListener('change', () => loadHistory(els.historyFilter.value));
-document.addEventListener('DOMContentLoaded', () => loadHistory());
+/* --- CATEGORY FILTER --- */
+document.querySelectorAll('.category-btn').forEach(btn=>{
+    btn.onclick = ()=>{
+        document.querySelectorAll('.category-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.dataset.category;
+        renderMenu(menus[currentCafeteria], cat, document.getElementById('menuSearch').value);
+    };
+});
 
-/* 
-   ORDER DETAILS MODAL
-   */
-window.showDetails = async id => {
-    try {
-        const r = await fetch(`get_order_details.php?id=${id}`);
-        const o = await r.json();
-        els.detailsContent.innerHTML = `
-            <p><strong>Cafeteria:</strong> ${o.cafeteria_name}</p>
-            <p><strong>Type:</strong> ${o.order_type}</p>
-            <p><strong>Payment:</strong> ${o.payment_method}</p>
-            <ul>${o.items.map(i=>`<li>${i.quantity}× ${i.name} – ¢${fmt(i.price*i.quantity)}</li>`).join('')}</ul>
-            <p><strong>Total:</strong> ¢${fmt(o.total_amount)}</p>
-            ${o.delivery_location ? `<p><strong>Delivery:</strong> ${o.delivery_location}</p>` : ''}
-        `;
-        els.cancelBtn.style.display = ['received','processing'].includes(o.status.toLowerCase()) ? 'inline-block' : 'none';
-        els.cancelBtn.onclick = () => cancelOrder(id);
-        show(els.detailsModal);
-    } catch (e) { console.error(e); }
+/* --- SEARCH --- */
+document.getElementById('menuSearch').oninput = (e)=>{
+    const activeCat = document.querySelector('.category-btn.active').dataset.category;
+    renderMenu(menus[currentCafeteria], activeCat, e.target.value);
 };
-async function cancelOrder(id) {
-    if (!confirm('Cancel this order?')) return;
-    const r = await fetch('cancel_order.php', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({orderId:id})});
-    const res = await r.json();
-    alert(res.success ? 'Cancelled' : res.message || 'Error');
-    hide(els.detailsModal);
-    loadHistory(els.historyFilter.value);
-}
-
-/* close modals */
-document.querySelectorAll('.close-modal, .close-modal-btn').forEach(b => b.onclick = () => {
-    hide(els.detailsModal); hide(els.orderModal);
-});
-
-/* 
-   FEEDBACK
-   */
-els.feedbackForm.addEventListener('submit', e => {
-    e.preventDefault();
-    els.feedbackResp.textContent = 'Thank you for your feedback!';
-    els.feedbackForm.reset();
-    setTimeout(() => els.feedbackResp.textContent = '', 3000);
-});
